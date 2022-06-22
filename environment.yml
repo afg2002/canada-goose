@@ -237,6 +237,7 @@ dependencies:
     - pytz-deprecation-shim==0.1.0.post0
     - pywin32==304
     - pywinpty==2.0.5
+    - pcre==8.45=h0e60522_0
     - pyzmq==23.2.0
     - rich==12.4.4
     - scikit-learn==1.1.1
