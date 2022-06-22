@@ -202,7 +202,6 @@ dependencies:
     - pympler==1.0.1
     - pyrsistent==0.18.1
     - pytz-deprecation-shim==0.1.0.post0
-    - pywin32==304
     - pywinpty==2.0.5
     - pyzmq==23.2.0
     - rich==12.4.4
