@@ -18,8 +18,6 @@ dependencies:
   - python=3.8.13
   - setuptools=62.6.0
   - statsmodels=0.13.2
-  - vc=14.2
-  - vs2015_runtime
   - wheel=0.37.1
   - pip:
     - matplotlib-inline==0.1.3
