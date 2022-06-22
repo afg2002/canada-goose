@@ -80,7 +80,7 @@ dependencies:
   - libzlib=1.2.12
   - lunarcalendar=0.0.9
   - lz4-c=1.9.3
-  - matplotlib=3.5.2
+  - matplotlib=3.1.1
   - mkl=2022.1.0
   - multidict=6.0.2
   - munkres=1.1.4
