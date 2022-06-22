@@ -6,3 +6,5 @@
 - pmdarima==1.8.5
 - statsmodels==0.13.2
 - cython==0.29.30
+- python==3.8
+  
