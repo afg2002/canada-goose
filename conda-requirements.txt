@@ -1,6 +1,7 @@
 # This file may be used to create an environment using:
 # $ conda create --name <env> --file <this file>
 # platform: win-64
+python=3.8
 aiohttp=3.8.1=py38h294d835_1
 aiosignal=1.2.0=pyhd8ed1ab_0
 altair=4.2.0=pypi_0
