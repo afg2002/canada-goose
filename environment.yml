@@ -47,7 +47,6 @@ dependencies:
   - idna=3.3
   - importlib-metadata=4.11.4
   - importlib_metadata=4.11.4
-  - intel-openmp=2022.1.0
   - jpeg=9e
   - kiwisolver=1.4.3
   - korean_lunar_calendar=0.2.1
