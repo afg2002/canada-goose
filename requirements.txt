@@ -1,8 +1,5 @@
-pystan==2.19.1.1
 pmdarima==1.8.5
-pysocks==1.7.1
 matplotlib==3.5.2
 streamlit==1.10.0
-fbprophet==0.7.1
+prophet==1.0.1
 pandas==1.4.2
-
