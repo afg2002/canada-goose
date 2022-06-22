@@ -9,7 +9,7 @@ st.write('Mempertahankan brand "canada goose" agar tetap menjadi penjualan terti
 st.markdown('# All Data')
 @st.cache
 def load_csv_data():
-    data = pd.read_csv('Final Data Sales.csv')
+    data = pd.read_csv('Final_Data_Sales.csv')
 
     # Convert data yang bukan datetime yang seperti 0000-0000 ke Datetime agar hasilnya NaT
     data['sold_at'] = pd.to_datetime(data['sold_at'], errors='coerce')
@@ -126,7 +126,7 @@ y_train, y_test = y[:28], y[-7:] # Pisah data untuk keperlaun model dengan 80% t
 
 st.markdown('# Model')
 st.markdown('## ProphetFB Model')
-from fbprophet import Prophet #Import Prophet FB Model
+from prophet import Prophet #Import Prophet FB Model
 
 m = Prophet()
 d = y.copy()
