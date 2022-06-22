@@ -126,7 +126,7 @@ y_train, y_test = y[:28], y[-7:] # Pisah data untuk keperlaun model dengan 80% t
 
 st.markdown('# Model')
 st.markdown('## ProphetFB Model')
-from prophet import Prophet #Import Prophet FB Model
+from fbprophet import Prophet #Import Prophet FB Model
 
 m = Prophet()
 d = y.copy()
