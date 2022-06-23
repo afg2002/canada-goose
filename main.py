@@ -1,12 +1,18 @@
-import matplotlib.pyplot as plt
-from pylab import rcParams
-from statsmodels.tsa.seasonal import seasonal_decompose
-import streamlit as st
-import pandas as pd
+import warnings
 
-st.title('Project Canada Goose')
-st.write('Mempertahankan brand "canada goose" agar tetap menjadi penjualan tertinggi (untuk 1 tahun kedepan) dengan metode time series forecasting')
-st.markdown('# All Data')
+# disable FutureWarning/DeprecationWarning from prophet/pandas
+warnings.simplefilter(action='ignore', category=DeprecationWarning)
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import streamlit as st
+from fbprophet import Prophet  # Import Prophet FB Model
+from pmdarima import auto_arima
+from statsmodels.tsa.seasonal import seasonal_decompose
+# from pylab import rcParams
+
+
 @st.cache
 def load_csv_data():
     tp = pd.read_csv('https://media.githubusercontent.com/media/afg2002/canada-goose/main/Final_Data_Sales.csv', iterator=True, chunksize=1000)  # gives TextFileReader
@@ -21,6 +27,11 @@ def load_csv_data():
     # Ambil data date dari data setelahnya.
     data.fillna(method='bfill',inplace=True)
     return data
+
+
+st.title('Project Canada Goose')
+st.write('Mempertahankan brand "canada goose" agar tetap menjadi penjualan tertinggi (untuk 1 tahun kedepan) dengan metode time series forecasting')
+st.markdown('# All Data')
 
 data_load_state = st.text('Loading data...')
 data = load_csv_data()
@@ -113,7 +124,7 @@ Teknik untuk memisahkan time series menjadi trend, seasonal, dan residual menggu
 Additive dipakai **untuk trend dan seasonal yang tidak terlalu bervariasi**\n
 Multiplicative dipakai **untuk trend dan seasonal yang berubah seiring jalannya waktu**
 ''')
-rcParams['figure.figsize'] = 10, 5 #Besar Figur
+# rcParams['figure.figsize'] = 10, 5 #Besar Figur
 decomposition = seasonal_decompose(y.copy(), model='additive',period=12)
 
 fig = decomposition.plot()
@@ -125,7 +136,6 @@ y_train, y_test = y[:28], y[-7:] # Pisah data untuk keperlaun model dengan 80% t
 
 st.markdown('# Model')
 st.markdown('## ProphetFB Model')
-from fbprophet import Prophet #Import Prophet FB Model
 
 m = Prophet()
 d = y.copy()
@@ -148,12 +158,13 @@ st.pyplot(fig)
 
 #Arima Model
 st.markdown("## ARIMA Model")
-from pmdarima import auto_arima
+
 arima = auto_arima(y_train,start_p=1, start_q=1, max_p=3, max_q=3, m=12,
-                             start_P=0, seasonal=True, d=1, D=1, trace=True,
-                             error_action='ignore',  # don't want to know if an order does not work
-                             suppress_warnings=True,  # don't want convergence warnings
-                             stepwise=True)
+                    start_P=0, seasonal=True, d=1, D=1,
+                    trace=False, # no logging output
+                    error_action='warn',  # don't want to know if an order does not work
+                    suppress_warnings=True,  # don't want convergence warnings
+                    stepwise=True)
 
 n_forecast = len(y_test) + 8
 pred= arima.predict(n_forecast,D=1,seasonal=(1,0,0))
