@@ -7,5 +7,4 @@ statsmodels==0.13.2
 pmdarima==1.8.5
 streamlit==1.10.0
 pandas==1.4.2
-dask
 convertdate
