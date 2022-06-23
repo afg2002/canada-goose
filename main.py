@@ -9,7 +9,8 @@ st.write('Mempertahankan brand "canada goose" agar tetap menjadi penjualan terti
 st.markdown('# All Data')
 @st.cache
 def load_csv_data():
-    data = pd.read_csv('https://media.githubusercontent.com/media/afg2002/canada-goose/main/Final_Data_Sales.csv')
+    tp = pd.read_csv('Final_Data_Sales.csv', iterator=True, chunksize=1000)  # gives TextFileReader
+    data = pd.concat(tp, ignore_index=True)
     # Convert data yang bukan datetime yang seperti 0000-0000 ke Datetime agar hasilnya NaT
     data['sold_at'] = pd.to_datetime(data['sold_at'], errors='coerce')
     data['created_at'] = pd.to_datetime(data['created_at'], errors='coerce')
