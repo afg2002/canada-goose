@@ -1,12 +1,11 @@
 fbprophet
 matplotlib==3.5.2
 numpy==1.22.4
-pyqt==5.15.4
-pyqt5-sip==12.9.0
 pystan==2.19.1.1
-python==3.8.13
 setuptools==62.6.0
 statsmodels==0.13.2
 pmdarima==1.8.5
 streamlit==1.10.0
 pandas==1.4.2
+dask
+convertdate
