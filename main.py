@@ -1,15 +1,16 @@
-import pandas as pd
 import matplotlib.pyplot as plt
 from pylab import rcParams
 from statsmodels.tsa.seasonal import seasonal_decompose
 import streamlit as st
+import pandas as pd
 
 st.title('Project Canada Goose')
 st.write('Mempertahankan brand "canada goose" agar tetap menjadi penjualan tertinggi (untuk 1 tahun kedepan) dengan metode time series forecasting')
 st.markdown('# All Data')
 @st.cache
 def load_csv_data():
-    data = pd.read_csv('Final_Data_Sales.csv')
+    tp = pd.read_csv('Final_Data_Sales.csv', iterator=True, chunksize=1000)  # gives TextFileReader
+    data = pd.concat(tp, ignore_index=True)
 
     # Convert data yang bukan datetime yang seperti 0000-0000 ke Datetime agar hasilnya NaT
     data['sold_at'] = pd.to_datetime(data['sold_at'], errors='coerce')
@@ -19,11 +20,10 @@ def load_csv_data():
     data['returned_at'] = pd.to_datetime(data['returned_at'], errors='coerce')
 
     # Ambil data date dari data setelahnya.
-    data.fillna(method='bfill', inplace=True)
+    data.fillna(method='bfill',inplace=True)
     return data
 
 data_load_state = st.text('Loading data...')
-# Load 10,000 rows of data into the dataframe.
 data = load_csv_data()
 st.dataframe(data)
 # Notify the reader that the data was successfully loaded.
@@ -126,7 +126,7 @@ y_train, y_test = y[:28], y[-7:] # Pisah data untuk keperlaun model dengan 80% t
 
 st.markdown('# Model')
 st.markdown('## ProphetFB Model')
-from fbprophet import Prophet #Import Prophet FB Model
+from prophet import Prophet #Import Prophet FB Model
 
 m = Prophet()
 d = y.copy()
@@ -142,7 +142,7 @@ final_forecast = forecast['yhat']
 
 fig = plt.figure(figsize=(15,5))
 plt.title("Prediksi untuk 1 tahun kedepan dengan ProphetFB Model")
-plt.plot(d, label="Actual")
+plt.plot(d, label="Actually")
 plt.plot(final_forecast, label="Predicted")
 plt.legend(loc = 'upper left')
 st.pyplot(fig)
@@ -168,10 +168,3 @@ plt.plot(y_test,label="Test")
 plt.plot(pred,label="Pred")
 plt.legend(loc = 'upper left')
 st.pyplot(fig)
-
-
-
-
-
-
-
